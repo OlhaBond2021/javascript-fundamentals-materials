@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 01</title>
+</head>
+
+<body>
+    <button>Click me!</button>
+    <script>
+        /*
+        Задание:
+        Добавьте для кнопки два обработчика, один должен сработать в фазе capturing, второй - в фазе bubbling
+        */
+
+        let button = document.querySelector("button");
+        button.addEventListener("click", handler1);
+        button.addEventListener("click", handler2, true);
+        // спочатку спрацьовує обробник capturing, потім - bubbling
+
+        function handler1 () {
+           alert("bubbling");
+        }
+
+        function handler2() {
+            alert("capturing");
+        }
+
+        // let button = document.querySelector("button");
+        // button.addEventListener("click", handler1);
+        // button.addEventListener("click", handler2); // спрацьовують по черзі, спочатку перший потім другий
+
+        // function handler1 () {
+        //    alert("bubbling1");
+        // }
+
+        // function handler2() {
+        //     alert("bubbling2");
+        // }
+
+        // let button = document.querySelector("button");
+        // button.addEventListener("click", handler1); // обробник спрацьовує перший і не дає першим спрацювати наступний обробник.
+        // button.addEventListener("keyup", handler2); // тобто, поки не виконається перший обробник, другий не буде виконуватись при натисканні відповідної кнопки
+
+        // function handler1() {
+        //     alert("handler1");
+        //     console.log("handler1");
+        // }
+
+        // function handler2() {
+        //     alert("handler2");
+        //     console.log("handler2");
+        // }
+    </script>
+</body>
+
+</html>

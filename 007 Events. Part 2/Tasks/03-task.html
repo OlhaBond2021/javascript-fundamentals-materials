@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 03</title>
+    <style>
+        div {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: green;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+
+    <script>
+        /*
+        Задание:
+        Реализуйте сценарий, который при нажатии на клавиши 1, 2 или 3 на клавиатуре будет добавлять рамку
+        красного цвета на соответствующий div. Если зажаты клавиши Ctrl + A, то красная рамка добавляется сразу
+        для всех div
+        */
+
+        // let div1 = document.querySelector("#div1");
+        // let div2 = document.querySelector("#div2");
+        // let div3 = document.querySelector("#div3");
+
+        let allDiv = document.querySelectorAll("div");
+
+
+        document.addEventListener("keydown", function (e) {
+            switch (e.key) {
+                case "1":
+                    setBorder(0);
+                    // div1.style.border = "4px solid red";
+                    break;
+                case "2":
+                    setBorder(1);
+                    // div2.style.border = "4px solid red";
+                    break;
+                case "3":
+                    setBorder(2);
+                    // div3.style.border = "4px solid red";
+                    break;
+            }
+            if (e.key == "a" && e.ctrlKey) {
+                setBorder(0);
+                setBorder(1);
+                setBorder(2);
+                // div1.style.border = "4px solid red";
+                // div2.style.border = "4px solid red";
+                // div3.style.border = "4px solid red";
+
+            }
+        });
+
+        function setBorder (divPosition) {
+            allDiv[divPosition].style.border = "4px solid red";
+        }
+
+    </script>
+</body>
+
+</html>

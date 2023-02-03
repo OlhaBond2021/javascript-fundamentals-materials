@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 01</title>
+</head>
+
+<body>
+    <div data-color="red">Div 1</div>
+    <div data-color="green">Div 2</div>
+    <div data-color="blue">Div 3</div>
+
+    <script>
+        /*
+        Задание:
+        Напишите сценарий, который поменяет цвет текста элементов div,
+         на тот, который указан в качестве значения атрибута data-color
+        */
+
+        // let allDiv = document.querySelectorAll("div");
+
+        // let color1 = allDiv[0].dataset.color;
+        // console.log(color1);
+
+        // let color2 = allDiv[1].dataset.color;
+        // console.log(color2);
+
+        // let color3 = allDiv[2].dataset.color;
+        // console.log(color3);
+
+        // allDiv[0].style.color = color1;
+        // allDiv[1].style.color = color2;
+        // allDiv[2].style.color = color3;
+
+        let allDiv = document.querySelectorAll("[data-color]");
+
+        for (let div of allDiv) {
+            div.style.color = div.dataset.color;
+        }
+
+    </script>
+</body>
+
+</html>
