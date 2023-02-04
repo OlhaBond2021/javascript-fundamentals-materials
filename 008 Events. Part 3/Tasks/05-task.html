@@ -49,11 +49,51 @@
     <script>
         /*
         Задание:
-        Допишите сценарий, при нажатии на кнопку Generate, с помощью функции generateElement, должно создаваться 100 элементов и размещаться в
-        элементе interactivePanel. При повторном нажатии на кнопку, содержимое interactivePanel должно удалятся, после чего создаваться новые 100 элементов.
-        Все элементы с классом interactiveElement должны поддерживать перетаскивание мышью, при левом клике клавиши по элементу он должен перемещаться
+        Допишите сценарий, при нажатии на кнопку Generate, с помощью функции generateElement, 
+        должно создаваться 100 элементов и размещаться в
+        элементе interactivePanel. При повторном нажатии на кнопку, 
+        содержимое interactivePanel должно удалятся, после чего создаваться новые 100 элементов.
+        Все элементы с классом interactiveElement должны поддерживать перетаскивание мышью, 
+        при левом клике клавиши по элементу он должен перемещаться
         за курсором до момента обжатия клавиши мыши.
         */
+        let interactivePanel = document.querySelector("#interactivePanel");
+        let generateButton = document.querySelector("#generateButton");
+        let move = false;
+        let offsetX, offsetY;
+        let currentDiv;
+        const generateButtonHeight = parseInt(getComputedStyle(generateButton).height);
+
+
+        generateButton.addEventListener("click", function () {
+            interactivePanel.innerHTML = "";
+            for (let i = 0; i < 100; i++) {
+                interactivePanel.append(generateElement());
+            }
+        });
+
+        // при нажатии на div(interactiveElement) запоминаем отступ от курсора до левого верхнего угла div
+        interactivePanel.addEventListener("mousedown", function (e) {
+            if (e.target.classList.contains("interactiveElement")) {
+                move = true;
+                offsetX = e.offsetX;
+                offsetY = e.offsetY;
+                currentDiv = e.target;
+            }
+        });
+
+
+        interactivePanel.addEventListener("mousemove", function (e) {
+            if (move) {
+                currentDiv.style.top = e.clientY - offsetY - generateButtonHeight + "px";
+                currentDiv.style.left = e.clientX - offsetX + "px";
+            }
+        });
+
+        // в момент, когда клавиша отпускается прекращаем перемещение div
+        interactivePanel.addEventListener("mouseup", function (e) {
+            move = false;
+        });
 
         // Создает и возвращает div с классом interactiveElement со случайной позицией в текущем окне
         function generateElement() {
@@ -65,7 +105,7 @@
             div.style.left = getRandomValue(maxLeft) + "px";
             div.style.backgroundColor = getRandomColor();
             return div;
-        }
+        };
 
         // возвращает случайное значение цвета 
         function getRandomColor() {
@@ -75,12 +115,12 @@
                 color += letters[getRandomValue(16)];
             }
             return color;
-        }
+        };
 
         // возвращает случайное значение от 0 до max
         function getRandomValue(max) {
             return Math.floor(Math.random() * max);
-        }
+        };
     </script>
 </body>
 
