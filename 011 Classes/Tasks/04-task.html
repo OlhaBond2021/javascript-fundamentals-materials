@@ -69,6 +69,10 @@
         <input type="text" id="task-name-input">
         <button id="add-task-btn">Добавить задачу</button>
     </div>
+    <div class="input-panel">
+        <button id="show-uncompleted-task-btn">не завершенные</button>
+        <button id="show-all-tasks-btn">Показать все</button>
+    </div>
     <div class="task-list">
         <p id="start-message">Нет новых задач</p>
     </div>
@@ -78,12 +82,14 @@
         Задание:
         Добавьте в пользовательский интерфейс две кнопки "Показать не завершенные задачи" и 
         "Показать все" 
-        При нажатии на кнопку "Показать не завершенные задачи" в списке задач должны отображаться только завершенные задачи.
+        При нажатии на кнопку "Показать не завершенные задачи" в списке задач должны 
+        отображаться только завершенные задачи.
         При нажатии на "Показать все" в списке задач должны отображаться все задачи.
 
         Подсказка
-        При нажатии на кнопки, нужно удалять содержимое элемента .task-list и на основе данных, которые находятся в массиве
-        tasks, заново строить DOM выбирая из массива те объекты, у которых свойство isDone содержит соответствующее значение.
+        При нажатии на кнопки, нужно удалять содержимое элемента .task-list и на 
+        основе данных, которые находятся в массиве tasks, заново строить DOM выбирая из массива
+        те объекты, у которых свойство isDone содержит соответствующее значение.
         */
         let taskNameInput = document.querySelector("#task-name-input");
         let addTaskButton = document.querySelector("#add-task-btn");
@@ -91,11 +97,16 @@
         let taskList = document.querySelector(".task-list");
         let tasks = [];
 
+        let showUncompletedTaskBtn = document.querySelector("#show-uncompleted-task-btn");
+        let showAllTasksBtn = document.querySelector("#show-all-tasks-btn");
+
         addTaskButton.addEventListener("click", addTaskHandler);
+        showUncompletedTaskBtn.addEventListener("click", showUncompletedTaskHandler);
+        showAllTasksBtn.addEventListener("click", showAllTasksHandler);
 
         taskNameInput.addEventListener("keydown", function (e) {
             if (e.code == "Enter") addTaskHandler();
-        })
+        });
 
         function addTaskHandler() {
             if (taskNameInput.value) {
@@ -110,6 +121,23 @@
                 alert("введите имя задачи");
             }
         }
+
+        function showAllTasksHandler() {
+            taskList.innerHTML = ""; // видалення всього що було в контейнері taskList
+            tasks.forEach(task => {
+                task.createIn(taskList);
+            });
+        }
+
+        function showUncompletedTaskHandler() {
+            taskList.innerHTML = ""; // видалення всього що було в контейнері taskList
+            tasks
+                .filter(task => task.isDone == false) // невиконані задачі записуються в масив (відкидаються виконані задачі)
+                .forEach(task => {
+                    task.createIn(taskList);
+                }); // задача task створюється createIn в списку задач taskList
+        }
+
 
         class Task {
             constructor(text) {
@@ -131,6 +159,12 @@
 
                 this.div.append(input);
                 this.div.append(p);
+                element.append(this.div);
+
+                if (this.isDone) {             //якщо стан "виконано", тоді при додаванні знову до списку стан залишається таким, який був до видалення зі списку
+                    this.div.classList.add("completed");
+                    input.checked = true;
+                }
                 element.append(this.div);
             }
 

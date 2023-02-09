@@ -18,7 +18,26 @@
         В классе должен быть определен метод getVolume, который должен возвращать значение объема данного цилиндра.
         Создайте два экземпляра данного класса, передав произвольные значения в качестве параметров конструктора и выведите
         на консоль значения объема двух экземпляров.
+        V = π × r2 × h
         */
+
+        class Cylinder {
+            constructor(height, radius) {
+                this.height = height;
+                this.radius = radius;
+            }
+
+            getVolume() {
+                return Math.PI * Math.pow(this.radius, 2) * this.height;
+            }
+        }
+
+        let cylinder1 = new Cylinder(10, 2);// 125.6
+        let cylinder2 = new Cylinder(5, 2); //62.8
+
+        console.log("cylinder1 " + cylinder1.getVolume());
+        console.log("cylinder2 " + cylinder2.getVolume());
+
     </script>
 </body>
 

@@ -23,20 +23,44 @@
     <div class="car-info" id="placeholder1"></div>
     <div class="car-info" id="placeholder2"></div>
     <div class="car-info" id="placeholder3"></div>
-    
+
     <script>
         /*
         Задание:
         Замените функцию конструктор на класс.
-        Все свойства класса Car поменяйте на закрытые поля и для каждого поля добавьте getter и setter по необходимости.
-        Для поля html предусмотрите возможность только получения значения, организуйте код таким образом, чтобы не допустить
+        Все свойства класса Car поменяйте на закрытые поля и для каждого поля добавьте getter и setter 
+        по необходимости.
+        Для поля html предусмотрите возможность только получения значения, 
+        организуйте код таким образом, чтобы не допустить
         редактирование значения свойства html напрямую.
         */
 
-        function Car(image, manufacturer) {
-            this.image = image;
-            this.manufacturer = manufacturer;
-            this.html = `<img src="images/${this.image}" /><br />Производитель: ${this.manufacturer}<br />`;
+        // function Car(image, manufacturer) {
+        //     this.image = image;
+        //     this.manufacturer = manufacturer;
+        //     this.html = `<img src="images/${this.image}" /><br />Производитель: ${this.manufacturer}<br />`;
+        // }
+
+        class Car {
+            #image;
+            #manufacturer;
+
+            constructor(image, manufacturer) {
+                this.#image = image;
+                this.#manufacturer = manufacturer;
+            }
+
+            get image() {
+                return this.#image;
+            }
+
+            get manufacturer() {
+                return this.#manufacturer;
+            }
+
+            get html() {
+                return `<img src="images/${this.#image}" /><br />Производитель: ${this.#manufacturer}<br />`;
+            }
         }
 
         let car1 = new Car("audi-a6-250.jpg", "Audi");
