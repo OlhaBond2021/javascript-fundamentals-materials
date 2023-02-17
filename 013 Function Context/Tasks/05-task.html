@@ -6,9 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task 05</title>
+    <style>
+        * {
+            margin: 10px;
+        }
+    </style>
 </head>
 
 <body>
+    <div id="field-for-game"></div>
     <script>
         /*
         Задание:
@@ -31,6 +37,105 @@
         Пользователь: 56
         Сценарий: Правильно! Загаданное значение 56. Вы угадали с 4й попытки за 10 сек.
         */
+
+        let fieldForGame = document.querySelector("#field-for-game");
+        let p = document.createElement("p");
+        p.textContent = "Try to guess a number and enter it in the field below";
+        let input = document.createElement("input");
+        input.className = "field-for-enter";
+        let button = document.createElement("button");
+        button.className = "check";
+        button.textContent = "Check";
+        fieldForGame.append(p);
+        fieldForGame.append(input);
+        fieldForGame.append(button);
+
+
+        button.addEventListener("click", checkValue);
+        document.body.addEventListener("keydown", (e) => { if (e.key == "Enter") checkValue(); });
+
+        let randomValue = Math.floor(Math.random() * 101);
+        console.log(randomValue);
+        let timerId = null;
+        let elapsedTime = 0;
+        let attempt = 0;
+
+        alert("I am guess a number from 0 to 100.");
+        timerId = setInterval(() => elapsedTime++, 1000);
+
+
+        function checkValue() {
+            attempt++;
+
+            let currentNumber = +input.value;
+
+            if (randomValue == currentNumber) {
+                alert(`Yes, a random number is ${currentNumber}, your attempt is ${attempt}, your time is ${elapsedTime}`);
+                clearInterval(timerId);
+            }
+            if (randomValue > currentNumber) {
+                alert(`I am guess number more than ${currentNumber}`);
+            }
+            if (randomValue < currentNumber) {
+                alert(`I am guess number less than ${currentNumber}`);
+            }
+            input.value = "";
+        }
+
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+
+        // let randomValue = Math.floor(Math.random() * 101);
+        // console.log(randomValue);
+        // let enterNumber = +prompt("I am guess the number from 0 to 100. Try to guess the number and enter it.");
+        // let counter = 1;
+        // let timer = setInterval(() => {
+        //     if(!enterNumber) {
+        //         alert("The game is stop");
+        //         clearInterval(timer);
+        //         return;
+        //     }
+        //     if (randomValue == enterNumber) {
+        //         alert(`Yes, the random number is ${enterNumber}, your attempt is ${counter}`);
+        //         clearInterval(timer);
+        //     }
+        //     if (randomValue > enterNumber) {
+        //         alert(`I am guess number more than ${enterNumber}`);
+        //         enterNumber = +prompt(`Try to guess the number and enter it.`);
+        //         counter++;
+        //     }
+        //     if (randomValue < enterNumber) {
+        //         alert(`I am guess number less than ${enterNumber}`);
+        //         enterNumber = +prompt(`Try to guess the number and enter it.`);
+        //         counter++;
+        //     }
+        // }, 0);
+
+        // -------------------------------------------------------------------------------------------
+
+        // function findRandomNumber(enterNumber) {
+        //     while (counter) {
+        //         if (randomValue == enterNumber) {
+        //             alert(`Yes, the random number is ${enterNumber}, your attempt is ${counter}`);
+        //             counter = false;
+        //             break;
+        //         }
+        //         if (randomValue > enterNumber) {
+        //             alert(`I am guess number more than ${enterNumber}`);
+        //             enterNumber = +prompt(`Try to guess the number and enter it.`);
+        //             counter++;
+        //         }
+        //         if (randomValue < enterNumber) {
+        //             alert(`I am guess number less than ${enterNumber}`);
+        //             enterNumber = +prompt(`Try to guess the number and enter it.`);
+        //             counter++;
+        //         }
+        //     }
+        // }
+
+        // findRandomNumber(enterNumber);
+
     </script>
 </body>
 
